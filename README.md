@@ -1,9 +1,16 @@
 # Advent of Code 2020
 
-## [--- Day 1: Report Repair ---](https://adventofcode.com/2020/day/1)
+### --- Day 1: Report Repair ---
 
-Solved with [TypeScript](https://www.typescriptlang.org/).
+- [Link](https://adventofcode.com/2020/day/1)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
 
-## [--- Day 2: Password Philosophy ---](https://adventofcode.com/2020/day/2)
+### --- Day 2: Password Philosophy ---
 
-Solved with [C# .NET 5](https://dotnet.microsoft.com/).
+- [Link](https://adventofcode.com/2020/day/2)
+- Solved with [C# .NET 5](https://dotnet.microsoft.com/).
+
+### --- Day 3: Toboggan Trajectory ---
+
+- [Link](https://adventofcode.com/2020/day/3)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
