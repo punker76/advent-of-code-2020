@@ -31,4 +31,18 @@ function getHighestSeatID() {
         .reduce((v1, v2) => { return Math.max(v1, v2); });
 }
 
+function getTheEmptySeatID() {
+    const seats = data
+        .map(pass => { return partOf(pass.slice(0, 7), 128) * 8 + partOf(pass.slice(7), 8); })
+        .sort((a, b) => { return a - b; });
+
+    for (let index = 1; index < seats.length; index++) {
+        const element = seats[index];
+        if (element - seats[index - 1] > 1) {
+            return element - 1;
+        }
+    }
+}
+
 console.log(`The highest seat ID is: ${getHighestSeatID()}`);
+console.log(`The empty seat ID is: ${getTheEmptySeatID()}`);
