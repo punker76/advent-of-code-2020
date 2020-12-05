@@ -26,9 +26,7 @@ function partOf(instructions, count) {
 }
 
 function getHighestSeatID() {
-    return data
-        .map(pass => { return partOf(pass.slice(0, 7), 128) * 8 + partOf(pass.slice(7), 8); })
-        .reduce((v1, v2) => { return Math.max(v1, v2); });
+    return Math.max(...data.map(pass => { return partOf(pass.slice(0, 7), 128) * 8 + partOf(pass.slice(7), 8); }));
 }
 
 function getTheEmptySeatID() {
@@ -37,12 +35,28 @@ function getTheEmptySeatID() {
         .sort((a, b) => { return a - b; });
 
     for (let index = 1; index < seats.length; index++) {
-        const element = seats[index];
-        if (element - seats[index - 1] > 1) {
-            return element - 1;
+        const seat = seats[index];
+        if (seat - seats[index - 1] > 1) {
+            return seat - 1;
         }
     }
 }
 
+const binary = { 'F': 0, 'B': 1, 'L': 0, 'R': 1 };
+
+function getHighestSeatID_Binary() {
+    return Math.max(...data.map(pass => parseInt([...pass].map(b => binary[b]).join(''), 2)));
+}
+
+function getTheEmptySeatID_Binary() {
+    const seats = data.map(pass => parseInt([...pass].map(b => binary[b]).join(''), 2));
+    const [min, max] = [Math.min(...seats), Math.max(...seats)];
+    const all_seats = [...Array(max - min + 1)].map((v, i) => min + i);
+    return all_seats.filter(s => !seats.includes(s));
+}
+
 console.log(`The highest seat ID is: ${getHighestSeatID()}`);
 console.log(`The empty seat ID is: ${getTheEmptySeatID()}`);
+
+console.log(`The highest seat ID is: ${getHighestSeatID_Binary()}`);
+console.log(`The empty seat ID is: ${getTheEmptySeatID_Binary()}`);
