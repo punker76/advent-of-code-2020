@@ -23,3 +23,9 @@
 - [Task](https://adventofcode.com/2020/day/4)
 - [Solution](./04/PassportCheck.dpr)
 - Solved with [Delpho Rio 10.3](https://www.embarcadero.com/).
+
+### --- Day 5: Binary Boarding ---
+
+- [Task](https://adventofcode.com/2020/day/5)
+- [Solution](./05/boarding.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
