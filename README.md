@@ -29,3 +29,9 @@
 - [Task](https://adventofcode.com/2020/day/5)
 - [Solution](./05/boarding.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 6: Custom Customs ---
+
+- [Task](https://adventofcode.com/2020/day/6)
+- [Solution](./06/customs.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
