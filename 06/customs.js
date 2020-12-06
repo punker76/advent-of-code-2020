@@ -26,11 +26,8 @@ console.log(`Part one: Sum of group count is ${count}`);
 
 var count2 = groups
     .map(v => {
-        let p = [...v[0]];
-        for (let i = 1; i < v.length; i++) {
-            p = p.filter(value => [...v[i]].includes(value));
-        }
-        return new Set(p).size;
+        const everyone = v.reduce((v1, v2) => [...v1].filter(value => [...v2].includes(value)));
+        return everyone.length;
     })
     .reduce((v1, v2) => v1 + v2);
 
