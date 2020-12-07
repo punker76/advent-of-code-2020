@@ -30,7 +30,10 @@ namespace bags
 
             foreach (var kvp in data)
             {
-                DoCount(data, kvp.Key, kvp.Value);
+                if (kvp.Key != searchBag)
+                {
+                    DoCount(data, kvp.Key, kvp.Value);
+                }
             }
 
             Console.WriteLine($"{count} bag colors can eventually contain at least one shiny gold bag.");
@@ -47,22 +50,18 @@ namespace bags
                 return false;
             }
 
-            foreach (var v in value.Split(','))
+            if (key == searchBag)
             {
-                var match = Regex.Match(v, valuePattern);
-                if (match.Success)
+                count++;
+                return true;
+            }
+
+            foreach (var match in value.Split(',').Select(v => Regex.Match(v, valuePattern)).Where(m => m.Success))
+            {
+                var lookup = match.Groups[2].Value;
+                if (DoCount(data, lookup, data[lookup]))
                 {
-                    var c = Convert.ToInt16(match.Groups[1].Value);
-                    var lookup = match.Groups[2].Value;
-                    if (lookup == searchBag)
-                    {
-                        count++;
-                        return true;
-                    }
-                    else if (DoCount(data, lookup, data[lookup]))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
 
@@ -78,16 +77,12 @@ namespace bags
                 return result;
             }
 
-            foreach (var v in value.Split(','))
+            foreach (var match in value.Split(',').Select(v => Regex.Match(v, valuePattern)).Where(m => m.Success))
             {
-                var match = Regex.Match(v, valuePattern);
-                if (match.Success)
-                {
-                    var c = Convert.ToInt16(match.Groups[1].Value);
-                    var lookup = match.Groups[2].Value;
+                var c = Convert.ToInt16(match.Groups[1].Value);
+                var lookup = match.Groups[2].Value;
 
-                    result += c + c * DoCount2(data, lookup, data[lookup]);
-                }
+                result += c + c * DoCount2(data, lookup, data[lookup]);
             }
 
             return result;
