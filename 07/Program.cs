@@ -34,6 +34,10 @@ namespace bags
             }
 
             Console.WriteLine($"{count} bag colors can eventually contain at least one shiny gold bag.");
+
+            count = DoCount2(data, searchBag, data[searchBag]);
+
+            Console.WriteLine($"{count} individual bags are required.");
         }
 
         static bool DoCount(IDictionary<string, string> data, string key, string value)
@@ -55,17 +59,38 @@ namespace bags
                         count++;
                         return true;
                     }
-                    else if (lookup != key && data.ContainsKey(lookup))
+                    else if (DoCount(data, lookup, data[lookup]))
                     {
-                        if (DoCount(data, lookup, data[lookup]))
-                        {
-                            return true;
-                        }
+                        return true;
                     }
                 }
             }
 
             return false;
+        }
+
+        static int DoCount2(IDictionary<string, string> data, string key, string value)
+        {
+            var result = 0;
+
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+            {
+                return result;
+            }
+
+            foreach (var v in value.Split(','))
+            {
+                var match = Regex.Match(v, valuePattern);
+                if (match.Success)
+                {
+                    var c = Convert.ToInt16(match.Groups[1].Value);
+                    var lookup = match.Groups[2].Value;
+
+                    result += c + c * DoCount2(data, lookup, data[lookup]);
+                }
+            }
+
+            return result;
         }
     }
 }
