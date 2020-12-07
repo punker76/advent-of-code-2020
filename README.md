@@ -35,3 +35,9 @@
 - [Task](https://adventofcode.com/2020/day/6)
 - [Solution](./06/customs.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 7: Handy Haversacks ---
+
+- [Task](https://adventofcode.com/2020/day/7)
+- [Solution](./07/Program.cs)
+- Solved with [C# .NET 5](https://dotnet.microsoft.com/).
