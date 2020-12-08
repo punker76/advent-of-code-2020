@@ -41,3 +41,9 @@
 - [Task](https://adventofcode.com/2020/day/7)
 - [Solution](./07/Program.cs)
 - Solved with [C# .NET 5](https://dotnet.microsoft.com/).
+
+### --- Day 8: Handheld Halting ---
+
+- [Task](https://adventofcode.com/2020/day/8)
+- [Solution](./08/bootloop.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
