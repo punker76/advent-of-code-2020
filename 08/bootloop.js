@@ -9,87 +9,44 @@ const data =
 /**
  * @param {string[]} [theData]
  */
-function isInfinite(theData) {
+function calcAccumulator(theData) {
     const usedInstructons = new Set();
     let accumulator = 0;
+    let terminated = false;
     let line = 0;
 
-    while (line < theData.length) {
-        if (usedInstructons.has(line)) {
-            break;
-        }
-
+    while (!terminated && !usedInstructons.has(line)) {
         usedInstructons.add(line);
         const [arg, op] = theData[line].split(' ');
         switch (arg) {
             case 'acc':
                 accumulator += +op;
-                line++;
                 break;
             case 'jmp':
-                line += +op;
-                break;
-            default:
-                line++;
+                line += +op - 1;
                 break;
         }
+        line++;
+        terminated = line >= theData.length;
     }
 
-    return accumulator;
+    return { terminated, accumulator };
 }
 
+console.log(`The value of the accumulator is ${calcAccumulator(data).accumulator}`);
 
-console.log(`The value of the accumulator is ${isInfinite(data)}`);
-
-/**
- * @param {string[]} [theData]
- */
-function getAccumulator(theData) {
-    const usedInstructons = new Set();
-    let accumulator = 0;
-    let line = 0;
-
-    while (line < theData.length) {
-        if (usedInstructons.has(line)) {
-            return -1;
-        }
-
-        usedInstructons.add(line);
-        const [arg, op] = theData[line].split(' ');
-        switch (arg) {
-            case 'acc':
-                accumulator += +op;
-                line++;
-                break;
-            case 'jmp':
-                line += +op;
-                break;
-            default:
-                line++;
-                break;
-        }
-    }
-
-    return accumulator;
-}
+const swapOp = { 'jmp': 'nop', 'nop': 'jmp' };
 
 for (let index = 0; index < data.length; index++) {
     const [arg, op] = data[index].split(' ');
+    if (arg !== 'acc' && +op != 0) {
+        data[index] = data[index].replace(arg, swapOp[arg]);
+        const calc = calcAccumulator(data);
+        data[index] = data[index].replace(swapOp[arg], arg);
 
-    if (arg === 'jmp' && +op != null) {
-        const newData = [...data];
-        newData[index] = newData[index].replace('jmp', 'nop');
-        const count = getAccumulator(newData);
-        if (count >= 0) {
-            console.log(`The value of the accumulator is ${count}`);
-        }
-    }
-    else if (arg === 'nop' && +op != 0) {
-        const newData = [...data];
-        newData[index] = newData[index].replace('nop', 'jmp');
-        const count = getAccumulator(newData);
-        if (count >= 0) {
-            console.log(`The value of the accumulator is ${count}`);
+        if (calc.terminated) {
+            console.log(`The value of the accumulator is ${calc.accumulator}`);
+            break;
         }
     }
 }
