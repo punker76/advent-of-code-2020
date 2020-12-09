@@ -47,3 +47,9 @@
 - [Task](https://adventofcode.com/2020/day/8)
 - [Solution](./08/bootloop.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 9: Encoding Error ---
+
+- [Task](https://adventofcode.com/2020/day/9)
+- [Solution](./09/xmas.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
