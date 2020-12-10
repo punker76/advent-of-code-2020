@@ -8,26 +8,71 @@ const data =
         .map(n => +n)
         .sort((n1, n2) => n1 - n2);
 
-function partOne() {
-    let _jolts = 0;
-    let _1jolts = 0;
-    let _3jolts = 0;
+/**
+ * @param {number[]} input
+ */
+function partOne(input) {
+    const jolts = { 1: 0, 2: 0, 3: 0 };
+    const adapters = [0, ...input, input.pop() + 3];
 
-    for (let index = 0; index < data.length; index++) {
-        const next3 = data.slice(index, index + 3);
-        const nextJolts = next3.find(v => v - _jolts === 1 || v - _jolts === 3);
-        if (nextJolts - _jolts === 3) {
-            _3jolts++;
-        }
-        else {
-            _1jolts++;
-        }
-        _jolts = nextJolts;
+    for (let index = 1; index < adapters.length; index++) {
+        const diff = adapters[index] - adapters[index - 1];
+        jolts[diff]++;
     }
 
-    _3jolts++;
-
-    console.log(`There are ${_1jolts} differences of 1 jolt and ${_3jolts} differences of 3 jolts, multiplied: ${_1jolts * _3jolts}`);
+    console.log(`There are ${jolts[1]} differences of 1 jolt and ${jolts[3]} differences of 3 jolts, multiplied: ${jolts[1] * jolts[3]}`);
 }
 
-partOne();
+/**
+ * @param {number[]} input
+ */
+function partTwo(input) {
+    const adapters = [0, ...input, input.pop() + 3];
+    const diffs = [];
+
+    for (let index = 1; index < adapters.length; index++) {
+        const diff = adapters[index] - adapters[index - 1];
+        diffs.push(diff);
+    }
+
+    const ones = diffs.join('').split('3').map(o => o.length).filter(l => l >= 2).reverse();
+
+    /* 2 1 => 2 perms
+        1 2
+        1
+    */
+    /* 3 1 => 4 perms
+        1	2	3
+        1	2	
+        1		3
+        1		
+    */
+    /* 4 1 => 7 perms
+        1	2	3	4
+        1		3	4
+        1	2		4
+        1			4
+        1	2	3	
+        1	2		
+        1			
+    */
+
+    let total = 1;
+
+    ones.forEach(element => {
+        if (element === 4) {
+            total = 7 * total;
+        }
+        else if (element === 3) {
+            total = 4 * total;
+        }
+        else if (element === 2) {
+            total = 2 * total;
+        }
+    });
+
+    console.log(`Total number of distinct ways ${total}`);
+}
+
+partOne([...data]);
+partTwo([...data]);
