@@ -53,3 +53,9 @@
 - [Task](https://adventofcode.com/2020/day/9)
 - [Solution](./09/xmas.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 10: Adapter Array ---
+
+- [Task](https://adventofcode.com/2020/day/10)
+- [Solution](./10/jolt.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
