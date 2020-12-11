@@ -78,51 +78,30 @@ function partOne(input) {
  * @param {string[][]} input
  */
 function occupiedSeatsAroundPartTwo(row, col, input) {
-    let occupiedSeats = 0;
     const steps = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+    let occupiedSeats = 0;
 
     for (const step of steps) {
-        if (step[0] === 0) {
-            let seats = { '#': 0, 'L': 0, '.': 0 };
+        const seats = { '#': 0, 'L': 0, '.': 0 };
+        let r = row + step[0];
+        let c = col + step[1];
+        while (r >= 0 && r < input.length && c >= 0 && c < input[r].length) {
+            let seat = input[r][c];
+            seats[seat]++;
 
-            for (let c = col + step[1]; c < input[row].length && c >= 0; c += step[1]) {
-                const seat = input[row][c];
-                seats[seat]++;
-                if (seats["#"] === 1 && seats.L === 0) {
-                    occupiedSeats++;
-                    break;
-                }
+            if (seats["#"] === 1 && seats.L === 0) {
+                occupiedSeats++;
+                break;
             }
-        }
-        else if (step[1] === 0) {
-            let seats = { '#': 0, 'L': 0, '.': 0 };
+            else if (seats["#"] === 0 && seats.L === 1) {
+                break;
+            }
 
-            for (let r = row + step[0]; r < input.length && r >= 0; r += step[0]) {
-                const seat = input[r][col];
-                seats[seat]++;
-                if (seats["#"] === 1 && seats.L === 0) {
-                    occupiedSeats++;
-                    break;
-                }
-            }
-        }
-        else {
-            let seats = { '#': 0, 'L': 0, '.': 0 };
-            let r = row + step[0];
-            let c = col + step[1];
-            while (r >= 0 && r < input.length && c >= 0 && c < input[r].length) {
-                let seat = input[r][c];
-                seats[seat]++;
-                if (seats["#"] === 1 && seats.L === 0) {
-                    occupiedSeats++;
-                    break;
-                }
-
-                r += step[0];
-                c += step[1];
-            }
+            r += step[0];
+            c += step[1];
         }
     }
+
     return occupiedSeats;
 }
 
