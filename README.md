@@ -59,3 +59,9 @@
 - [Task](https://adventofcode.com/2020/day/10)
 - [Solution](./10/jolt.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 11: Seating System ---
+
+- [Task](https://adventofcode.com/2020/day/11)
+- [Solution](./11/seats.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
