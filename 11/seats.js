@@ -27,17 +27,19 @@ function occupiedSeatsAround(row, col, input) {
 
 /**
  * @param {string[][]} input
+ * @param {number} occupied
+ * @param {(arg0: number, arg1: number, arg2: string[][]) => number} [occupiedSeatsAroundCallback]
  */
-function matrixRound(input) {
+function matrixRound(input, occupied, occupiedSeatsAroundCallback) {
     const matrix = input.map((arr) => arr.slice());
     for (let row = 1; row < input.length - 1; row++) {
         for (let col = 1; col < input[row].length - 1; col++) {
             const seat = input[row][col];
             if (seat === 'L') {
-                matrix[row][col] = occupiedSeatsAround(row, col, input) === 0 ? '#' : 'L';
+                matrix[row][col] = occupiedSeatsAroundCallback(row, col, input) === 0 ? '#' : 'L';
             }
             else if (seat === '#') {
-                matrix[row][col] = occupiedSeatsAround(row, col, input) > 3 ? 'L' : '#';
+                matrix[row][col] = occupiedSeatsAroundCallback(row, col, input) >= occupied ? 'L' : '#';
             }
         }
     }
@@ -50,16 +52,6 @@ function matrixRound(input) {
  */
 function sameMatrix(m1, m2) {
     return m1.every((r, row) => r.every((v, col) => v === m2[row][col]));
-
-    // for (let row = 0; row < m1.length; row++) {
-    //     for (let col = 0; col < m1[row].length; col++) {
-    //         if (m1[row][col] !== m2[row][col]) {
-    //             return false;
-    //         }
-    //     }
-    // }
-
-    // return true;
 }
 
 /**
@@ -69,7 +61,7 @@ function partOne(input) {
     let matrix = input.map(l => [...l]);
 
     while (true) {
-        let changedMatrix = matrixRound(matrix);
+        let changedMatrix = matrixRound(matrix, 4, occupiedSeatsAround);
         if (sameMatrix(matrix, changedMatrix)) {
             break;
         }
@@ -77,7 +69,80 @@ function partOne(input) {
     };
 
     const occupiedSeats = matrix.reduce((total, row) => total += row.reduce((t, v) => v === '#' ? t + 1 : t, 0), 0);
-    console.log(`${occupiedSeats} seats are occupied.`)
+    console.log(`Part One: ${occupiedSeats} seats are occupied.`)
+}
+
+/**
+ * @param {number} row
+ * @param {number} col
+ * @param {string[][]} input
+ */
+function occupiedSeatsAroundPartTwo(row, col, input) {
+    let occupiedSeats = 0;
+    const steps = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+
+    for (const step of steps) {
+        if (step[0] === 0) {
+            let seats = { '#': 0, 'L': 0, '.': 0 };
+
+            for (let c = col + step[1]; c < input[row].length && c >= 0; c += step[1]) {
+                const seat = input[row][c];
+                seats[seat]++;
+                if (seats["#"] === 1 && seats.L === 0) {
+                    occupiedSeats++;
+                    break;
+                }
+            }
+        }
+        else if (step[1] === 0) {
+            let seats = { '#': 0, 'L': 0, '.': 0 };
+
+            for (let r = row + step[0]; r < input.length && r >= 0; r += step[0]) {
+                const seat = input[r][col];
+                seats[seat]++;
+                if (seats["#"] === 1 && seats.L === 0) {
+                    occupiedSeats++;
+                    break;
+                }
+            }
+        }
+        else {
+            let seats = { '#': 0, 'L': 0, '.': 0 };
+            let r = row + step[0];
+            let c = col + step[1];
+            while (r >= 0 && r < input.length && c >= 0 && c < input[r].length) {
+                let seat = input[r][c];
+                seats[seat]++;
+                if (seats["#"] === 1 && seats.L === 0) {
+                    occupiedSeats++;
+                    break;
+                }
+
+                r += step[0];
+                c += step[1];
+            }
+        }
+    }
+    return occupiedSeats;
+}
+
+/**
+ * @param {string[]} input
+ */
+function partTwo(input) {
+    let matrix = input.map(l => [...l]);
+
+    while (true) {
+        let changedMatrix = matrixRound(matrix, 5, occupiedSeatsAroundPartTwo);
+        if (sameMatrix(matrix, changedMatrix)) {
+            break;
+        }
+        matrix = [...changedMatrix].map((arr) => arr.slice());
+    };
+
+    const occupiedSeats = matrix.reduce((total, row) => total += row.reduce((t, v) => v === '#' ? t + 1 : t, 0), 0);
+    console.log(`Part Two: ${occupiedSeats} seats are occupied.`)
 }
 
 partOne([...data]);
+partTwo([...data]);
