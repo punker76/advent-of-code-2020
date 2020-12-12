@@ -65,3 +65,9 @@
 - [Task](https://adventofcode.com/2020/day/11)
 - [Solution](./11/seats.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 12: Rain Risk ---
+
+- [Task](https://adventofcode.com/2020/day/12)
+- [Solution](./12/route.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
