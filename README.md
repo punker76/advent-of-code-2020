@@ -75,5 +75,5 @@
 ### --- Day 13: Shuttle Search ---
 
 - [Task](https://adventofcode.com/2020/day/13)
-- [Solution](./13/shuttle.js)
-- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+- [Solution](./13/shuttle.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
