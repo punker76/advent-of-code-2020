@@ -71,3 +71,9 @@
 - [Task](https://adventofcode.com/2020/day/12)
 - [Solution](./12/route.js)
 - Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
+
+### --- Day 13: Shuttle Search ---
+
+- [Task](https://adventofcode.com/2020/day/13)
+- [Solution](./13/shuttle.js)
+- Solved with [JavaScript](https://en.wikipedia.org/wiki/JavaScript).
