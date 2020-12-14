@@ -77,3 +77,9 @@
 - [Task](https://adventofcode.com/2020/day/13)
 - [Solution](./13/shuttle.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 14: Docking Data ---
+
+- [Task](https://adventofcode.com/2020/day/14)
+- [Solution](./14/docking.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
