@@ -83,3 +83,9 @@
 - [Task](https://adventofcode.com/2020/day/14)
 - [Solution](./14/docking.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 15: Rambunctious Recitation ---
+
+- [Task](https://adventofcode.com/2020/day/15)
+- [Solution](./15/game.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
