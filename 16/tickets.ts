@@ -40,7 +40,64 @@ const parseData = (input: string[]) => {
     }
 };
 
-const partOne = (fields: Field[], ticket: number[], nearbyTickets: TicketNumber[][]) => {
+const allInRange = (field: Field, fieldIdx: number, correctTickets: TicketNumber[][]): boolean => {
+    let allNumbersInRange = true;
+    for (let ticketIdx = 0; ticketIdx < correctTickets.length; ticketIdx++) {
+        const ticketFieldNumber = correctTickets[ticketIdx][fieldIdx];
+
+        const inRange = (field.range1.indexOf(ticketFieldNumber.n) >= 0) || (field.range2.indexOf(ticketFieldNumber.n) >= 0);
+        allNumbersInRange = allNumbersInRange && inRange;
+    }
+    return allNumbersInRange;
+}
+
+const partTwo = (fields: Field[], ticket: TicketNumber[], correctTickets: TicketNumber[][]) => {
+    const usedFields = new Set<Field>();
+    const transformedFields = new Map<number, Field>();
+
+    while (usedFields.size < fields.length) {
+        for (const field of fields) {
+            // loop only over all unused fields
+            if (usedFields.has(field)) {
+                continue;
+            }
+
+            let matched = false;
+            let matchedFieldIdx = 0;
+            for (let fieldIdx = 0; fieldIdx < fields.length; fieldIdx++) {
+                // loop over all indices, except the already transformed ones
+                if (transformedFields.has(fieldIdx)) {
+                    continue;
+                }
+
+                if (allInRange(field, fieldIdx, correctTickets)) {
+                    if (matched) {
+                        matched = false;
+                        break;
+                    }
+                    matched = true;
+                    matchedFieldIdx = fieldIdx;
+                }
+            }
+
+            // only exactly one matched fields
+            if (matched) {
+                transformedFields.set(matchedFieldIdx, field);
+                usedFields.add(field);
+            }
+        }
+    }
+
+    const result = ticket
+        .filter((f, i) => transformedFields.get(i).name.indexOf('departure') >= 0)
+        .map(v => v.n)
+        .reduce((a, b) => a * b);
+
+    console.log(`Part Two: ${result}`);
+}
+
+const partOne = (fields: Field[], ticket: TicketNumber[], nearbyTickets: TicketNumber[][]) => {
+    const correctTickets: TicketNumber[][] = [];
     let errorRate = 0;
     nearbyTickets.forEach(ticket => {
         ticket.forEach(numbers => {
@@ -57,14 +114,20 @@ const partOne = (fields: Field[], ticket: number[], nearbyTickets: TicketNumber[
         if (wrongTicketNumber) {
             errorRate += wrongTicketNumber.n;
         }
+        else {
+            correctTickets.push(ticket);
+        }
     });
 
     console.log(`Part One: The ticket scanning error rate is ${errorRate}`);
+
+    correctTickets.unshift(ticket);
+    partTwo(fields, ticket, correctTickets);
 };
 
 parseData([...data]);
 partOne(
-    dataFields.map(f => {
+    dataFields.map((f, i) => {
         const tmp = fieldPattern.exec(f);
         let field: Field = {
             name: tmp[1],
@@ -73,5 +136,5 @@ partOne(
         };
         return field;
     })
-    , dataTicket.split(',').map(f => +f)
-    , dataNearbyTickets.map(t => t.split(',').map(n => { return { found: false, n: +n } }).sort((a, b) => a.n - b.n)));
+    , dataTicket.split(',').map(f => { return { found: false, n: +f } })
+    , dataNearbyTickets.map(t => t.split(',').map(n => { return { found: false, n: +n } })));
