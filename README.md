@@ -89,3 +89,9 @@
 - [Task](https://adventofcode.com/2020/day/15)
 - [Solution](./15/game.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 16: Ticket Translation ---
+
+- [Task](https://adventofcode.com/2020/day/16)
+- [Solution](./16/tickets.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
