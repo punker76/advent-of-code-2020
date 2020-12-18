@@ -8,7 +8,7 @@ const data: string[] =
         .filter(l => l)
         .map(l => l.replace(/ /g, ''));
 
-const solveExpression = (expression: string): number => {
+let solveExpression = (expression: string): number => {
     const matches = expression.matchAll(/([+|*])?(\d+){1}/g);
     let result: number = +matches.next().value[2];
     for (const m of matches) {
@@ -21,6 +21,17 @@ const solveExpression = (expression: string): number => {
             result *= op2;
         }
     }
+    return result;
+}
+
+const solveExpressionPartTwo = (expression: string): number => {
+    while (expression.indexOf('+') >= 0) {
+        const e = expression.match(/(\d+){1}\+(\d+){1}/g)[0];
+        const m = e.split('+');
+        const r = +m[0] + +m[1];
+        expression = expression.replace(e, r.toString());
+    }
+    const result = expression.split('*').reduce((acc, v) => acc * +v, 1);
     return result;
 }
 
@@ -54,4 +65,12 @@ const partOne = (input: string[]) => {
     console.log(`Part One: The sum of the resulting values are ${sum}`);
 }
 
+const partTwo = (input: string[]) => {
+    solveExpression = solveExpressionPartTwo;
+
+    let sum = input.reduce((acc, expr) => acc + evaluateExpression(expr), 0);
+    console.log(`Part Two: The sum of the resulting values are ${sum}`);
+}
+
 partOne(data);
+partTwo(data);
