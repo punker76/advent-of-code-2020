@@ -95,3 +95,9 @@
 - [Task](https://adventofcode.com/2020/day/16)
 - [Solution](./16/tickets.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 17: Conway Cubes ---
+
+- [Task](https://adventofcode.com/2020/day/17)
+- [Solution](./17/cubes.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
