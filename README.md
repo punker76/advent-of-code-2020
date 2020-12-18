@@ -101,3 +101,9 @@
 - [Task](https://adventofcode.com/2020/day/17)
 - [Solution](./17/cubes.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 18: Operation Order ---
+
+- [Task](https://adventofcode.com/2020/day/18)
+- [Solution](./18/operations.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
