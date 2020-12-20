@@ -107,3 +107,9 @@
 - [Task](https://adventofcode.com/2020/day/18)
 - [Solution](./18/operations.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 19: Monster Messages ---
+
+- [Task](https://adventofcode.com/2020/day/19)
+- [Solution](./19/message.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
