@@ -113,3 +113,9 @@
 - [Task](https://adventofcode.com/2020/day/19)
 - [Solution](./19/message.ts)
 - Solved with [TypeScript](https://www.typescriptlang.org/).
+
+### --- Day 20: Jurassic Jigsaw ---
+
+- [Task](https://adventofcode.com/2020/day/20)
+- [Solution](./20/image.ts)
+- Solved with [TypeScript](https://www.typescriptlang.org/).
